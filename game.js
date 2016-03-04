@@ -6,8 +6,9 @@ console.log("game loaded");
 var gameActive = true;
 
 // Specifies whose turn it is. Will alternate between player/enemy.
-var turn = "player";
-
+var turn;
+var player1;
+var enemy1;
 
 
 /******************* button event listeners ******************/
@@ -15,24 +16,32 @@ var turn = "player";
 var attackButton = document.querySelector('#attack');
 
 attackButton.addEventListener("click", function() {
-  andy.attack(baddie);
-  console.log("attack performed, baddie health: " + baddie.healthPoints)
-
+  if (attackButton.active == true) {
+    andy.attack(baddie);
+    console.log("attack performed, baddie health: " + baddie.healthPoints);
+    attackButton.active = false;
+    turn = undefined;
+  }
 });
 
 var defendButton = document.querySelector('#defend');
 
 defendButton.addEventListener("click", function() {
-  andy.defend();
-  console.log("defend performed.")
+  if (defendButton.active == true) {
+    andy.defend();
+    console.log("defend performed.")
+    defendButton.active = false;
+  };
 });
 
 var healButton = document.querySelector('#heal');
 
 healButton.addEventListener("click", function() {
-  andy.heal(andy);
-  console.log("heal performed, andy health: " + andy.health)
-
+  if (healButton.active == true) {
+    andy.heal(andy);
+    console.log("heal performed, andy health: " + andy.health)
+    healButton.active = false;
+  };
 });
 
 
@@ -50,6 +59,7 @@ function char(healthPoints, attackPower, healCount, healPower) {
   /*** character states ***/
   this.alive = true;
   this.defendStatus = false;
+  player1 = this;
 
   /*** character abilities ***/
   //attack ability
@@ -59,6 +69,7 @@ function char(healthPoints, attackPower, healCount, healPower) {
     } else {
       enemy.healthPoints -= this.attackPower;
     }
+    turn = undefined;
   };
 
   //heal ability
@@ -88,6 +99,7 @@ function enemy(healthPoints, attackPower) {
   /*** enemy states ***/
   this.alive = true;
   this.defendStatus = false;
+  enemy1 = this;
 
   /*** enemy abilities ***/
   //attack ability
@@ -110,6 +122,45 @@ var andy = new char(10, 2, 3, 1);
 var baddie = new enemy(10, 2);
 
 
+var playerTimer = function () {
+  window.setTimeout(playerTurn(player1), 2000);
+};
+
+var enemyTimer = function () {
+  window.setTimeout(takeTurn, 2000);
+};
+
+var playerTurn = function (player1) {
+  turn = player1;
+  attackButton.active = true;
+  defendButton.active = true;
+  healButton.active = true;
+  console.log("I happened")
+}
+
+playerTurn();
 
 
-//stuff
+var enemyTurn = function (enemy) {
+  turn = enemy1;
+  enemy.attack(andy);
+};
+
+
+
+
+
+
+//stuff for later
+
+// first attempt at setting an attack range for a character.
+// this.findAttackRange = function(attackPower){
+//   char.attackRange.push(Math.floor(Math.random() * this.attackPower));
+//   if (attackRange[0] > 0) {
+//     attackRange.push(attackRange[0] - (attackRange[0]/2));
+//   } else {
+//     attackRange.push(0)
+//   }
+//   console.log(attackRange);
+// }
+//

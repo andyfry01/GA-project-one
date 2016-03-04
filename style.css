@@ -76,6 +76,14 @@ p {
   bottom: 0;
 }
 
+/* come back to this later, makes the button div bigger to indicate that you can attack, etc.*/
+.active {
+  position: absolute;
+  width: 110%;
+  height: 70%;
+  bottom: 0;
+}
+
 button {
   height: 25%;
   width: 100%;
@@ -117,4 +125,3 @@ button {
   background: lightyellow;
   border: 1px dotted black;
 }
-#attack {}
