@@ -10,7 +10,8 @@ function char(healthPoints, attackPower, healCount, healPower){
     enemy.healthPoints -= this.attackPower;
   }
   this.heal = function(char) {
-    char.healthPoints +=
+    char.healthPoints += this.healPower;
+    this.healCount -= 1;
   }
 };
 
@@ -26,12 +27,7 @@ function enemy(healthPoints, attackPower){
 
 
 //tests
-var andy = new char(10, 2, 3);
+var andy = new char(10, 2, 3, 1);
 console.log(andy);
 var baddie = new enemy(10, 2);
 console.log(baddie);
-
-andy.attack(baddie);
-console.log(baddie);
-baddie.attack(andy);
-console.log(andy);

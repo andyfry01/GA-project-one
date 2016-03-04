@@ -1,0 +1,119 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+
+}
+
+img {
+
+}
+
+p {
+  font-size: 20px;
+  color: black;
+}
+
+.site-wrap {
+  height: 95vh;
+  width: 95vw;
+  background: lightgreen;
+  margin: 0 auto;
+}
+
+/*.fight {
+  width: 30%;
+  height: 15%;
+  background: rgba(0,0,0,0.5);
+  margin-top: 15px;
+  float: center;
+  text-align: center;
+}*/
+
+.char-col {
+  width: 50%;
+  height: 100%;
+  padding: 5px;
+  background: lightyellow;
+  border: 1px dotted black;
+  float: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.character {
+  height: 50%;
+  width: 50%;
+  background: lightblue;
+  border: 1px dotted black;
+  margin: 5px auto;
+}
+
+.char-panel {
+  height: 40%;
+  width: 60%;
+  background: lightblue;
+  border: 1px dotted black;
+  margin: 5px auto;
+  border-radius: 10px;
+  position: relative;
+}
+
+.stats {
+  height: 20%;
+  width: 100%;
+  background: white;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.button-div {
+  position: absolute;
+  width: 100%;
+  height: 60%;
+  bottom: 0;
+}
+
+button {
+  height: 25%;
+  width: 100%;
+  margin: 5px 0 5px 0;
+  background: gray;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.enemy-col {
+  width: 50%;
+  height: 100%;
+  padding: 5px;
+  background: lightblue;
+  border: 1px solid white;
+  float: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.enemy {
+  height: 30%;
+  width: 30%;
+  margin: 5px auto;
+}
+
+.one {
+  background: gray;
+  border: 1px dotted black;
+}
+
+.two {
+  background: white;
+  border: 1px dotted black;
+
+}
+
+.three {
+  background: lightyellow;
+  border: 1px dotted black;
+}
