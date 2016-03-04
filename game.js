@@ -127,6 +127,10 @@ var andy = new char(10, 2, 3, 1);
 var baddie = new enemy(10, 2);
 
 
+
+/******************* enemy and character timers ******************/
+
+/*** player timer, triggers player turn ***/
 var playerTimer = function() {
   window.setTimeout(function() {
     playerTurn(player1);
@@ -134,7 +138,7 @@ var playerTimer = function() {
   console.log("player timer started")
 
 };
-
+/*** enemy timer, triggers enemy turn ***/
 var enemyTimer = function() {
   window.setTimeout(function() {
     enemyTurn(enemy1);
@@ -142,6 +146,8 @@ var enemyTimer = function() {
   console.log("enemy timer started")
 };
 
+/*** player turn ***/
+//currently works
 var playerTurn = function(player1) {
   player1 = this;
   this.attackButton.active = true;
@@ -150,6 +156,8 @@ var playerTurn = function(player1) {
   console.log("buttons active, click away!")
 }
 
+/*** enemy turn ***/
+//currently does not work
 var enemyTurn = function(enemy1) {
   enemy1 = this;
   this.attack(player1);
