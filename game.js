@@ -1,7 +1,6 @@
 console.log("game loaded");
 
 //character object
-
 function char(healthPoints, attackPower, healCount, healPower){
   this.healthPoints = healthPoints;
   this.attackPower = attackPower;
@@ -31,17 +30,31 @@ function enemy(healthPoints, attackPower){
 //tests
 var andy = new char(10, 2, 3, 1);
 // console.log(andy);
-// var baddie = new enemy(10, 2);
+var baddie = new enemy(10, 2);
 // console.log(baddie);
 
 //event listeners for buttons.
 
 var attackButton = document.querySelector('#attack');
+
 attackButton.addEventListener("click", function(){
-  console.log("hello")
-})
+  andy.attack(baddie);
+});
+
 
 // attackButton.addEventListener("click", function(){
 //   andy.attack(baddie);
 //   console.log("button clicked, attack carried out");
 // })
+
+
+
+
+
+
+
+
+
+
+
+//stuff
