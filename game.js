@@ -18,7 +18,7 @@ var attackButton = document.querySelector('#attack');
 attackButton.addEventListener("click", function() {
   if (attackButton.active == true) {
     andy.attack(baddie);
-    console.log("attack performed, baddie health: " + baddie.healthPoints);
+    console.log("attack performed, enemy health: " + enemy1.healthPoints);
     attackButton.active = false;
     turn = undefined;
   }
@@ -32,6 +32,7 @@ defendButton.addEventListener("click", function() {
     console.log("defend performed.")
     defendButton.active = false;
   };
+  turn = undefined;
 });
 
 var healButton = document.querySelector('#heal');
@@ -42,6 +43,7 @@ healButton.addEventListener("click", function() {
     console.log("heal performed, andy health: " + andy.health)
     healButton.active = false;
   };
+  turn = undefined;
 });
 
 
@@ -69,7 +71,7 @@ function char(healthPoints, attackPower, healCount, healPower) {
     } else {
       enemy.healthPoints -= this.attackPower;
     }
-    turn = undefined;
+    console.log("attack performed, player1 health: " + player1.healthPoints);
   };
 
   //heal ability
@@ -109,11 +111,14 @@ function enemy(healthPoints, attackPower) {
     } else {
       character.healthPoints -= this.attackPower;
     }
+    console.log("enemy has attacked, player health: " + player1.healthPoints)
+    turn = undefined;
   };
 
   //defend ability
   this.defend = function(enemy) {
     this.defendStatus = true;
+    turn = undefined;
   }
 };
 
@@ -122,29 +127,37 @@ var andy = new char(10, 2, 3, 1);
 var baddie = new enemy(10, 2);
 
 
-var playerTimer = function () {
-  window.setTimeout(playerTurn(player1), 2000);
+var playerTimer = function() {
+  window.setTimeout(function() {
+    playerTurn(player1);
+  }, 1000);
+  console.log("player timer started")
+
 };
 
-var enemyTimer = function () {
-  window.setTimeout(takeTurn, 2000);
+var enemyTimer = function() {
+  window.setTimeout(function() {
+    enemyTurn(enemy1);
+  }, 1000);
+  console.log("enemy timer started")
 };
 
-var playerTurn = function (player1) {
-  turn = player1;
-  attackButton.active = true;
-  defendButton.active = true;
-  healButton.active = true;
-  console.log("I happened")
+var playerTurn = function(player1) {
+  player1 = this;
+  this.attackButton.active = true;
+  this.defendButton.active = true;
+  this.healButton.active = true;
+  console.log("buttons active, click away!")
 }
 
-playerTurn();
-
-
-var enemyTurn = function (enemy) {
-  turn = enemy1;
-  enemy.attack(andy);
+var enemyTurn = function(enemy1) {
+  enemy1 = this;
+  this.attack(player1);
 };
+
+playerTimer();
+enemyTimer();
+
 
 
 
