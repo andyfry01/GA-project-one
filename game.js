@@ -93,9 +93,9 @@ function char(healthPoints, attackPower, healCount, healPower) {
     if (this.healCount = 0) {
       console.log("no more heals for player left!"); //note: update to display on screen later
     } else {
-      char.healthPoints += this.healPower;
+      char.currentHealth += this.healPower;
       this.healCount -= 1;
-      console.log("heal performed, player health: " + andy.health)
+      console.log("heal performed, player health: " + andy.currentHealth)
     }
   };
 };
@@ -139,121 +139,119 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
     }
     //heal ability
   this.heal = function(enemy) {
-      enemy.currentHealth += enemy.healPower;
-      enemy.healCount -= 1;
-      console.log("heal performed, enemy health: " + enemy.currentHealth)
+    enemy.currentHealth += enemy.healPower;
+    enemy.healCount -= 1;
+    console.log("heal performed, enemy health: " + enemy.currentHealth)
     startEnemyTimer();
   };
 
   /*** enemy AI ***/
 
   this.computeMove = function() {
+    var randomMove = undefined;
     var randomizeMove = function() {
-      return Math.random();
+      randomMove = Math.random();
     }
     if (this.currentHealth > (this.healthPoints * 0.60)) {
-      return this.attack(player1)
       console.log("enemy health is greater than 60% max, it chose to attack")
-    }
-    if (this.currentHealth < (this.healthPoints * 0.30)) {
-      if (this.healCount > 0) {
-      return this.heal(enemy1)
-      console.log("enemy health is less than 30% max, it chose to heal")
-    } else {
       return this.attack(player1)
-      console.log("enemy health is less than 30% max but it has no more heals left, it chose to attack")
-    }
-  } else {
-    if (randomizeMove() > 0.5) {
-      return this.attack(player1)
-      console.log("enemy health is between 60% and 30% max, it randomly chose to attack")
-
-    }
-    if (randomizeMove() < 0.5) {
+    } else if (this.currentHealth < (this.healthPoints * 0.30)) {
       if (this.healCount > 0) {
+        console.log("enemy health is less than 30% max, it chose to heal")
         return this.heal(enemy1)
-        console.log("enemy health is between 60% and 30% max and it has heals left, it randomly chose to heal")
       } else {
+        console.log("enemy health is less than 30% max but it has no more heals left, it chose to attack")
         return this.attack(player1)
-        console.log("enemy health is between 60% and 30% max and it doesn't have heals left, it chose to attack")
+      }
+    } else {
+      randomizeMove();
+      if (randomMove > 0.5) {
+        console.log("enemy health is between 60% and 30% max, it randomly chose to attack")
+        return this.attack(player1)
+      }
+      if (randomMove < 0.5) {
+        if (this.healCount > 0) {
+          console.log("enemy health is between 60% and 30% max and it has heals left, it randomly chose to heal")
+          return this.heal(enemy1)
+        } else {
+          console.log("enemy health is between 60% and 30% max and it doesn't have heals left, it chose to attack")
+          return this.attack(player1)
+        }
       }
     }
   }
-}
-
 };
-
-//test enemy/characters
-var andy = new char(10, 2, 3, 1);
-var baddie = new enemy(10, 2, 3, 1);
-
+  //test enemy/characters
+  var andy = new char(10, 2, 3, 1);
+  var baddie = new enemy(10, 2, 3, 1);
 
 
 
 
-/******************* enemy and character timers ******************/
 
-/*** player timer, triggers player turn ***/
-var startPlayerTimer = function() {
-  window.setTimeout(function() {
-    playerTurn(player1);
-  }, 5000);
-  console.log("player timer started")
+  /******************* enemy and character timers ******************/
 
-};
-/*** enemy timer, triggers enemy turn ***/
-var startEnemyTimer = function() {
-  window.setTimeout(function() {
-    enemyTurn(enemy1);
-  }, 5000);
-  console.log("enemy timer started")
-};
+  /*** player timer, triggers player turn ***/
+  var startPlayerTimer = function() {
+    window.setTimeout(function() {
+      playerTurn(player1);
+    }, 5000);
+    console.log("player timer started")
 
-
-
-
-/********** enemy and character turn triggering functions ************/
-/*** player turn ***/
-var playerTurn = function(player) {
-  playerActive = true;
-  toggleButtons();
-  console.log("buttons active, click away!")
-}
-
-/*** enemy turn ***/
-var enemyTurn = function(enemy) {
-  enemy1.computeMove();
-};
+  };
+  /*** enemy timer, triggers enemy turn ***/
+  var startEnemyTimer = function() {
+    window.setTimeout(function() {
+      enemyTurn(enemy1);
+    }, 5000);
+    console.log("enemy timer started")
+  };
 
 
 
 
-/******************* misc functions ******************/
-
-var toggleButtons = function() {
-  if (playerActive == true) {
-    attackButton.active = true;
-    healButton.active = true;
+  /********** enemy and character turn triggering functions ************/
+  /*** player turn ***/
+  var playerTurn = function() {
+    playerActive = true;
+    toggleButtons();
+    console.log("buttons active, click away!")
   }
-  if (playerActive == false) {
-    attackButton.active = true;
-    healButton.active = true;
-  }
-};
+
+  /*** enemy turn ***/
+  var enemyTurn = function() {
+    enemy1.computeMove();
+  };
 
 
 
 
-//stuff for later
+  /******************* misc functions ******************/
 
-// first attempt at setting an attack range for a character.
-// this.findAttackRange = function(attackPower){
-//   char.attackRange.push(Math.floor(Math.random() * this.attackPower));
-//   if (attackRange[0] > 0) {
-//     attackRange.push(attackRange[0] - (attackRange[0]/2));
-//   } else {
-//     attackRange.push(0)
-//   }
-//   console.log(attackRange);
-// }
-//
+  var toggleButtons = function() {
+    if (playerActive == true) {
+      attackButton.active = true;
+      healButton.active = true;
+    }
+    if (playerActive == false) {
+      attackButton.active = true;
+      healButton.active = true;
+    }
+  };
+
+
+
+
+  //stuff for later
+
+  // first attempt at setting an attack range for a character.
+  // this.findAttackRange = function(attackPower){
+  //   char.attackRange.push(Math.floor(Math.random() * this.attackPower));
+  //   if (attackRange[0] > 0) {
+  //     attackRange.push(attackRange[0] - (attackRange[0]/2));
+  //   } else {
+  //     attackRange.push(0)
+  //   }
+  //   console.log(attackRange);
+  // }
+  //
