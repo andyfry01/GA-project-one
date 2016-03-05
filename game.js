@@ -62,7 +62,7 @@ function char(healthPoints, attackPower, healCount, healPower) {
   this.attackPower = attackPower;
   this.healCount = healCount;
   this.healPower = healPower;
-  this.currentHealth = undefined;
+  this.currentHealth = healthPoints;
 
   /*** attack-related stats ***/
   this.attackMax = undefined;
@@ -84,8 +84,8 @@ function char(healthPoints, attackPower, healCount, healPower) {
   //attack ability
   this.attack = function(enemy) {
     this.findAttackRange();
-    enemy.healthPoints -= this.attackDamage;
-    console.log("attack performed, enemy health: " + enemy.healthPoints);
+    enemy.currentHealth -= this.attackDamage;
+    console.log("attack performed, enemy health: " + enemy.currentHealth);
   };
 
   //heal ability
@@ -111,7 +111,7 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
   this.attackPower = attackPower;
   this.healCount = healCount;
   this.healPower = healPower;
-  this.currentHealth = undefined;
+  this.currentHealth = healthPoints;
 
   /*** attack-related stats ***/
   this.attackMax = undefined;
@@ -133,19 +133,15 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
   //attack ability
   this.attack = function(character) {
       this.findAttackRange();
-      character.healthPoints -= this.attackDamage;
-      console.log("enemy has attacked, player health: " + player1.healthPoints);
+      character.currentHealth -= this.attackDamage;
+      console.log("enemy has attacked, player health: " + player1.currentHealth);
       startEnemyTimer();
     }
     //heal ability
   this.heal = function(enemy) {
-    if (this.healCount = 0) {
-      console.log("no more heals for enemy left!"); //note: update to display on screen later
-    } else {
-      enemy.healthPoints += enemy.healPower;
+      enemy.currentHealth += enemy.healPower;
       enemy.healCount -= 1;
-      console.log("heal performed, enemy health: " + enemy.health)
-    }
+      console.log("heal performed, enemy health: " + enemy.currentHealth)
     startEnemyTimer();
   };
 
@@ -156,24 +152,30 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
       return Math.random();
     }
     if (this.currentHealth > (this.healthPoints * 0.60)) {
-      this.attack(player1)
+      return this.attack(player1)
+      console.log("enemy health is greater than 60% max, it chose to attack")
     }
     if (this.currentHealth < (this.healthPoints * 0.30)) {
       if (this.healCount > 0) {
-      this.heal(enemy1)
+      return this.heal(enemy1)
+      console.log("enemy health is less than 30% max, it chose to heal")
     } else {
-      this.attack(player1)
+      return this.attack(player1)
+      console.log("enemy health is less than 30% max but it has no more heals left, it chose to attack")
     }
   } else {
-    randomizeMove();
-    if (randomizeMove >= 0.5) {
-      this.attack(player1)
+    if (randomizeMove() > 0.5) {
+      return this.attack(player1)
+      console.log("enemy health is between 60% and 30% max, it randomly chose to attack")
+
     }
-    if (randomizeMove <= 0.5) {
+    if (randomizeMove() < 0.5) {
       if (this.healCount > 0) {
-        this.heal(enemy1)
+        return this.heal(enemy1)
+        console.log("enemy health is between 60% and 30% max and it has heals left, it randomly chose to heal")
       } else {
-        this.attack(player1)
+        return this.attack(player1)
+        console.log("enemy health is between 60% and 30% max and it doesn't have heals left, it chose to attack")
       }
     }
   }
