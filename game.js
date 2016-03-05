@@ -10,7 +10,7 @@ window.onload = function() {
 var playGame = function() {
 
   var gameActive = true;
-  startPlayerTimer();
+  playerTurn();
   startEnemyTimer();
 
   if (player1.healthPoints == 0) {
@@ -158,7 +158,7 @@ function enemy(healthPoints, attackPower) {
     console.log("enemy has attacked, player health: " + player1.healthPoints);
     startEnemyTimer();
   }
-  
+
   //defend ability
   this.defend = function(enemy) {
     this.defendStatus = true;
@@ -197,15 +197,18 @@ var startEnemyTimer = function() {
 
 /********** enemy and character turn triggering functions ************/
 /*** player turn ***/
-var playerTurn = function(player1) {
+var playerTurn = function(player) {
   playerActive = true;
+  player1.defendStatus = false;
   toggleButtons();
   console.log("buttons active, click away!")
 }
 
 /*** enemy turn ***/
-var enemyTurn = function(enemy1) {
+var enemyTurn = function(enemy) {
+  enemy1.defendStatus = false;
   enemy1.attack(player1);
+
 };
 
 
