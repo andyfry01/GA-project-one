@@ -2,10 +2,22 @@ console.log("game loaded");
 
 
 /******************* basic game elements ******************/
-// Set to false if the character dies.
-var gameActive = true;
 
-// Specifies whether it's the player's turn or not.
+var playGame = function() {
+
+  var gameActive = true;
+  startPlayerTimer();
+  startEnemyTimer();
+
+  if (player1.healthPoints == 0) {
+    gameActive = false;
+    gameOver();
+  }
+};
+
+
+
+// Specifies whether it's the player's turn or not, defines player/enemy variables.
 var playerActive;
 var player1;
 var enemy1;
@@ -45,6 +57,8 @@ healButton.addEventListener("click", function() {
     startPlayerTimer();
   };
 });
+
+
 
 
 /******************* character object creator ******************/
@@ -91,6 +105,8 @@ function char(healthPoints, attackPower, healCount, healPower) {
 };
 
 
+
+
 /******************* enemy object creator ******************/
 function enemy(healthPoints, attackPower) {
 
@@ -112,19 +128,21 @@ function enemy(healthPoints, attackPower) {
       character.healthPoints -= this.attackPower;
     }
     console.log("enemy has attacked, player health: " + player1.healthPoints)
-    turn = undefined;
+    startEnemyTimer();
   };
 
   //defend ability
   this.defend = function(enemy) {
     this.defendStatus = true;
-    turn = undefined;
+    startEnemyTimer();
   }
 };
 
 //test enemy/characters
 var andy = new char(10, 2, 3, 1);
 var baddie = new enemy(10, 2);
+
+
 
 
 
@@ -146,8 +164,11 @@ var startEnemyTimer = function() {
   console.log("enemy timer started")
 };
 
+
+
+
+/********** enemy and character turn triggering functions ************/
 /*** player turn ***/
-//currently works
 var playerTurn = function(player1) {
   playerActive = true;
   toggleButtons();
@@ -159,8 +180,7 @@ var enemyTurn = function(enemy1) {
   enemy1.attack(player1);
 };
 
-startPlayerTimer();
-startEnemyTimer();
+
 
 
 /******************* misc functions ******************/
@@ -177,6 +197,9 @@ var toggleButtons = function() {
     healButton.active = true;
   }
 };
+
+
+playGame();
 
 
 //stuff for later
