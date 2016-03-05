@@ -1,4 +1,8 @@
-console.log("game loaded");
+window.onload = function () {
+  console.log("game loaded");
+  playGame();
+}
+
 
 
 /******************* basic game elements ******************/
@@ -199,7 +203,6 @@ var toggleButtons = function() {
 };
 
 
-playGame();
 
 
 //stuff for later
