@@ -57,7 +57,7 @@ healButton.addEventListener("click", function() {
 /******************* character object creator ******************/
 function char(healthPoints, attackPower, healCount, healPower) {
 
-  /*** character stats ***/
+  /*** character vital stats ***/
   this.healthPoints = healthPoints;
   this.attackPower = attackPower;
   this.healCount = healCount;
@@ -106,7 +106,7 @@ function char(healthPoints, attackPower, healCount, healPower) {
 /******************* enemy object creator ******************/
 function enemy(healthPoints, attackPower, healCount, healPower) {
 
-  /*** enemy stats ***/
+  /*** enemy vital stats ***/
   this.healthPoints = healthPoints;
   this.attackPower = attackPower;
   this.healCount = healCount;
@@ -146,25 +146,25 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
       enemy.healCount -= 1;
       console.log("heal performed, enemy health: " + enemy.health)
     }
+    startEnemyTimer();
   };
 
   /*** enemy AI ***/
 
   this.computeMove = function() {
-    function randomizeMove() {
+    var randomizeMove = function() {
       return Math.random();
     }
     if (this.currentHealth > (this.healthPoints * 0.60)) {
       this.attack(player1)
     }
     if (this.currentHealth < (this.healthPoints * 0.30)) {
-      if this.healCount > 0) {
+      if (this.healCount > 0) {
       this.heal(enemy1)
     } else {
       this.attack(player1)
     }
-  }
-  else {
+  } else {
     randomizeMove();
     if (randomizeMove >= 0.5) {
       this.attack(player1)
@@ -220,8 +220,7 @@ var playerTurn = function(player) {
 
 /*** enemy turn ***/
 var enemyTurn = function(enemy) {
-  enemy1.attack(player1);
-
+  enemy1.computeMove();
 };
 
 
