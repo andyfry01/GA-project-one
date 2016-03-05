@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = function() {
   console.log("game loaded");
   playGame();
 }
@@ -74,6 +74,17 @@ function char(healthPoints, attackPower, healCount, healPower) {
   this.healCount = healCount;
   this.healPower = healPower;
 
+  this.attackMax = undefined;
+  this.attackMin = undefined;
+  this.attackDamage = undefined;
+
+  this.findAttackRange = function() {
+    this.attackMax = Math.floor(Math.random() * this.attackPower);
+    this.attackMin = this.attackMax / 2;
+    this.attackDamage = Math.floor(Math.random() * (this.attackMax - this.attackMin + 1)) + this.attackMin;
+  };
+
+
   /*** character states ***/
   this.alive = true;
   this.defendStatus = false;
@@ -82,10 +93,11 @@ function char(healthPoints, attackPower, healCount, healPower) {
   /*** character abilities ***/
   //attack ability
   this.attack = function(enemy) {
+    this.findAttackRange();
     if (enemy.defendStatus == true) {
-      enemy.healthPoints -= (this.attackPower / 2); //note: possibly revisit this
+      enemy.healthPoints -= (this.attackDamage / 2);
     } else {
-      enemy.healthPoints -= this.attackPower;
+      enemy.healthPoints -= this.attackDamage;
     }
     console.log("attack performed, enemy health: " + enemy.healthPoints);
   };
@@ -118,6 +130,16 @@ function enemy(healthPoints, attackPower) {
   this.healthPoints = healthPoints;
   this.attackPower = attackPower;
 
+  this.attackMax = undefined;
+  this.attackMin = undefined;
+  this.attackDamage = undefined;
+
+  this.findAttackRange = function() {
+    this.attackMax = Math.floor(Math.random() * this.attackPower);
+    this.attackMin = this.attackMax / 2;
+    this.attackDamage = Math.floor(Math.random() * (this.attackMax - this.attackMin + 1)) + this.attackMin;
+  };
+
   /*** enemy states ***/
   this.alive = true;
   this.defendStatus = false;
@@ -125,16 +147,18 @@ function enemy(healthPoints, attackPower) {
 
   /*** enemy abilities ***/
   //attack ability
-  this.attack = function(character) {
-    if (character.defendStatus == true) {
-      character.healthPoints -= (this.attackPower / 2); //note: possibly revisit this
-    } else {
-      character.healthPoints -= this.attackPower;
-    }
-    console.log("enemy has attacked, player health: " + player1.healthPoints)
-    startEnemyTimer();
-  };
 
+  this.attack = function(character) {
+    this.findAttackRange();
+    if (character.defendStatus == true) {
+      character.healthPoints -= (this.attackDamage / 2);
+    } else {
+      character.healthPoints -= this.attackDamage;
+    }
+    console.log("enemy has attacked, player health: " + player1.healthPoints);
+    startEnemyTimer();
+  }
+  
   //defend ability
   this.defend = function(enemy) {
     this.defendStatus = true;
