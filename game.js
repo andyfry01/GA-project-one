@@ -40,17 +40,6 @@ attackButton.addEventListener("click", function() {
   }
 });
 
-var defendButton = document.querySelector('#defend');
-
-defendButton.addEventListener("click", function() {
-  if (defendButton.active == true && playerActive == true) {
-    andy.defend();
-    playerActive = false;
-    toggleButtons();
-    startPlayerTimer();
-  };
-});
-
 var healButton = document.querySelector('#heal');
 
 healButton.addEventListener("click", function() {
@@ -73,67 +62,63 @@ function char(healthPoints, attackPower, healCount, healPower) {
   this.attackPower = attackPower;
   this.healCount = healCount;
   this.healPower = healPower;
+  this.currentHealth = undefined;
 
+  /*** attack-related stats ***/
   this.attackMax = undefined;
   this.attackMin = undefined;
   this.attackDamage = undefined;
 
+  /*** randomly computes attack damage based on attack power ***/
   this.findAttackRange = function() {
     this.attackMax = Math.floor(Math.random() * this.attackPower);
     this.attackMin = this.attackMax / 2;
     this.attackDamage = Math.floor(Math.random() * (this.attackMax - this.attackMin + 1)) + this.attackMin;
   };
 
-
   /*** character states ***/
   this.alive = true;
-  this.defendStatus = false;
   player1 = this;
 
   /*** character abilities ***/
   //attack ability
   this.attack = function(enemy) {
     this.findAttackRange();
-    if (enemy.defendStatus == true) {
-      enemy.healthPoints -= (this.attackDamage / 2);
-    } else {
-      enemy.healthPoints -= this.attackDamage;
-    }
+    enemy.healthPoints -= this.attackDamage;
     console.log("attack performed, enemy health: " + enemy.healthPoints);
   };
 
   //heal ability
   this.heal = function(char) {
     if (this.healCount = 0) {
-      console.log("no more heals left!"); //note: update to display on screen later
+      console.log("no more heals for player left!"); //note: update to display on screen later
     } else {
       char.healthPoints += this.healPower;
       this.healCount -= 1;
       console.log("heal performed, player health: " + andy.health)
     }
   };
-
-  //defend ability
-  this.defend = function(char) {
-    this.defendStatus = true;
-    console.log("defend performed.")
-  }
 };
 
 
 
 
 /******************* enemy object creator ******************/
-function enemy(healthPoints, attackPower) {
+function enemy(healthPoints, attackPower, healCount, healPower) {
 
   /*** enemy stats ***/
   this.healthPoints = healthPoints;
   this.attackPower = attackPower;
+  this.healCount = healCount;
+  this.healPower = healPower;
+  this.currentHealth = undefined;
 
+  /*** attack-related stats ***/
   this.attackMax = undefined;
   this.attackMin = undefined;
   this.attackDamage = undefined;
 
+  /*** randomly computes attack damage based on attack power ***/
   this.findAttackRange = function() {
     this.attackMax = Math.floor(Math.random() * this.attackPower);
     this.attackMin = this.attackMax / 2;
@@ -142,33 +127,63 @@ function enemy(healthPoints, attackPower) {
 
   /*** enemy states ***/
   this.alive = true;
-  this.defendStatus = false;
   enemy1 = this;
 
   /*** enemy abilities ***/
   //attack ability
-
   this.attack = function(character) {
-    this.findAttackRange();
-    if (character.defendStatus == true) {
-      character.healthPoints -= (this.attackDamage / 2);
-    } else {
+      this.findAttackRange();
       character.healthPoints -= this.attackDamage;
+      console.log("enemy has attacked, player health: " + player1.healthPoints);
+      startEnemyTimer();
     }
-    console.log("enemy has attacked, player health: " + player1.healthPoints);
-    startEnemyTimer();
-  }
+    //heal ability
+  this.heal = function(enemy) {
+    if (this.healCount = 0) {
+      console.log("no more heals for enemy left!"); //note: update to display on screen later
+    } else {
+      enemy.healthPoints += enemy.healPower;
+      enemy.healCount -= 1;
+      console.log("heal performed, enemy health: " + enemy.health)
+    }
+  };
 
-  //defend ability
-  this.defend = function(enemy) {
-    this.defendStatus = true;
-    startEnemyTimer();
+  /*** enemy AI ***/
+
+  this.computeMove = function() {
+    function randomizeMove() {
+      return Math.random();
+    }
+    if (this.currentHealth > (this.healthPoints * 0.60)) {
+      this.attack(player1)
+    }
+    if (this.currentHealth < (this.healthPoints * 0.30)) {
+      if this.healCount > 0) {
+      this.heal(enemy1)
+    } else {
+      this.attack(player1)
+    }
   }
+  else {
+    randomizeMove();
+    if (randomizeMove >= 0.5) {
+      this.attack(player1)
+    }
+    if (randomizeMove <= 0.5) {
+      if (this.healCount > 0) {
+        this.heal(enemy1)
+      } else {
+        this.attack(player1)
+      }
+    }
+  }
+}
+
 };
 
 //test enemy/characters
 var andy = new char(10, 2, 3, 1);
-var baddie = new enemy(10, 2);
+var baddie = new enemy(10, 2, 3, 1);
 
 
 
@@ -199,14 +214,12 @@ var startEnemyTimer = function() {
 /*** player turn ***/
 var playerTurn = function(player) {
   playerActive = true;
-  player1.defendStatus = false;
   toggleButtons();
   console.log("buttons active, click away!")
 }
 
 /*** enemy turn ***/
 var enemyTurn = function(enemy) {
-  enemy1.defendStatus = false;
   enemy1.attack(player1);
 
 };
@@ -219,12 +232,10 @@ var enemyTurn = function(enemy) {
 var toggleButtons = function() {
   if (playerActive == true) {
     attackButton.active = true;
-    defendButton.active = true;
     healButton.active = true;
   }
   if (playerActive == false) {
     attackButton.active = true;
-    defendButton.active = true;
     healButton.active = true;
   }
 };
