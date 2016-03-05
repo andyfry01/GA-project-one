@@ -5,8 +5,8 @@ console.log("game loaded");
 // Set to false if the character dies.
 var gameActive = true;
 
-// Specifies whose turn it is. Will alternate between player/enemy.
-var turn;
+// Specifies whether it's the player's turn or not.
+var playerActive;
 var player1;
 var enemy1;
 
@@ -16,37 +16,35 @@ var enemy1;
 var attackButton = document.querySelector('#attack');
 
 attackButton.addEventListener("click", function() {
-  if (attackButton.active == true) {
+  if (attackButton.active == true && playerActive == true) {
     andy.attack(baddie);
-    console.log("attack performed, enemy health: " + enemy1.healthPoints);
-    attackButton.active = false;
-    turn = undefined;
+    playerActive = false;
+    toggleButtons();
+    startPlayerTimer();
   }
 });
 
 var defendButton = document.querySelector('#defend');
 
 defendButton.addEventListener("click", function() {
-  if (defendButton.active == true) {
+  if (defendButton.active == true && playerActive == true) {
     andy.defend();
-    console.log("defend performed.")
-    defendButton.active = false;
+    playerActive = false;
+    toggleButtons();
+    startPlayerTimer();
   };
-  turn = undefined;
 });
 
 var healButton = document.querySelector('#heal');
 
 healButton.addEventListener("click", function() {
-  if (healButton.active == true) {
+  if (healButton.active == true && playerActive == true) {
     andy.heal(andy);
-    console.log("heal performed, andy health: " + andy.health)
-    healButton.active = false;
+    playerActive = false;
+    toggleButtons();
+    startPlayerTimer();
   };
-  turn = undefined;
 });
-
-
 
 
 /******************* character object creator ******************/
@@ -71,7 +69,7 @@ function char(healthPoints, attackPower, healCount, healPower) {
     } else {
       enemy.healthPoints -= this.attackPower;
     }
-    console.log("attack performed, player1 health: " + player1.healthPoints);
+    console.log("attack performed, enemy health: " + enemy.healthPoints);
   };
 
   //heal ability
@@ -81,12 +79,14 @@ function char(healthPoints, attackPower, healCount, healPower) {
     } else {
       char.healthPoints += this.healPower;
       this.healCount -= 1;
+      console.log("heal performed, player health: " + andy.health)
     }
   };
 
   //defend ability
   this.defend = function(char) {
     this.defendStatus = true;
+    console.log("defend performed.")
   }
 };
 
@@ -131,45 +131,52 @@ var baddie = new enemy(10, 2);
 /******************* enemy and character timers ******************/
 
 /*** player timer, triggers player turn ***/
-var playerTimer = function() {
+var startPlayerTimer = function() {
   window.setTimeout(function() {
     playerTurn(player1);
-  }, 1000);
+  }, 5000);
   console.log("player timer started")
 
 };
 /*** enemy timer, triggers enemy turn ***/
-var enemyTimer = function() {
+var startEnemyTimer = function() {
   window.setTimeout(function() {
     enemyTurn(enemy1);
-  }, 1000);
+  }, 5000);
   console.log("enemy timer started")
 };
 
 /*** player turn ***/
 //currently works
 var playerTurn = function(player1) {
-  player1 = this;
-  this.attackButton.active = true;
-  this.defendButton.active = true;
-  this.healButton.active = true;
+  playerActive = true;
+  toggleButtons();
   console.log("buttons active, click away!")
 }
 
 /*** enemy turn ***/
-//currently does not work
 var enemyTurn = function(enemy1) {
-  enemy1 = this;
-  this.attack(player1);
+  enemy1.attack(player1);
 };
 
-playerTimer();
-enemyTimer();
+startPlayerTimer();
+startEnemyTimer();
 
 
+/******************* misc functions ******************/
 
-
-
+var toggleButtons = function() {
+  if (playerActive == true) {
+    attackButton.active = true;
+    defendButton.active = true;
+    healButton.active = true;
+  }
+  if (playerActive == false) {
+    attackButton.active = true;
+    defendButton.active = true;
+    healButton.active = true;
+  }
+};
 
 
 //stuff for later
