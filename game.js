@@ -145,7 +145,7 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
     startEnemyTimer();
   };
 
-  /*** enemy AI ***/
+  /************************** enemy AI **************************/
 
   this.computeMove = function() {
     var randomMove = undefined;
@@ -165,11 +165,11 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
       }
     } else {
       randomizeMove();
-      if (randomMove > 0.5) {
+      if (randomMove > 0.3) {
         console.log("enemy health is between 60% and 30% max, it randomly chose to attack")
         return this.attack(player1)
       }
-      if (randomMove < 0.5) {
+      if (randomMove < 0.3) {
         if (this.healCount > 0) {
           console.log("enemy health is between 60% and 30% max and it has heals left, it randomly chose to heal")
           return this.heal(enemy1)
@@ -181,6 +181,7 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
     }
   }
 };
+
   //test enemy/characters
   var andy = new char(10, 2, 3, 1);
   var baddie = new enemy(10, 2, 3, 1);
