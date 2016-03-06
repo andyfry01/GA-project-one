@@ -16,6 +16,7 @@ p {
 }
 
 .site-wrap {
+  position: relative;
   height: 95vh;
   width: 95vw;
   background: lightgreen;
@@ -45,11 +46,47 @@ p {
 }
 
 .character {
+  position: relative;
   height: 60%;
   width: 60%;
   background: lightblue;
   border: 1px dotted black;
   margin: 5px auto;
+}
+
+.status-div {
+  position: absolute;
+  bottom: 0;
+  height: 15%;
+  width: 100%;
+  background: lightgreen;
+}
+
+.status-box {
+  height: 100%;
+  width: 15%;
+  position: absolute;
+}
+
+#char-health {
+  background: blue;
+  left: 0;
+}
+
+#char-heals {
+  background: white;
+  right: 0;
+}
+
+#enemy-health {
+  background: blue;
+  left: 0;
+}
+
+
+#enemy-heals {
+  background: white;
+  right: 0;
 }
 
 .button-panel {
@@ -81,6 +118,7 @@ button {
 }
 
 .enemy-col {
+  position: relative;
   width: 50%;
   height: 100%;
   padding: 5px;
@@ -93,23 +131,10 @@ button {
 }
 
 .enemy {
+  position: relative;
   height: 60%;
   width: 60%;
   margin: 5px auto;
-}
-
-.one {
   background: gray;
-  border: 1px dotted black;
-}
-
-.two {
-  background: white;
-  border: 1px dotted black;
-
-}
-
-.three {
-  background: lightyellow;
   border: 1px dotted black;
 }

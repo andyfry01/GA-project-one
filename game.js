@@ -240,6 +240,23 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
     }
   };
 
+  var charHealth = document.querySelector("#char-health");
+  var charHeals = document.querySelector("#char-heals");
+  var enemyHealth = document.querySelector("#enemy-health");
+  var enemyHeals = document.querySelector("#enemy-heals");
+
+  function updatePlayerHealth(){
+    charHealth.innerText = player1.healthPoints;
+  };
+  function updatePlayerHeals(){
+    charHeals.innerText = player1.healthPoints;
+  };
+  function updatePlayerHealth(){
+    charHealth.innerText = player1.healthPoints;
+  };
+  function updatePlayerHeals(){
+    charHeals.innerText = player1.healthPoints;
+  };
 
 
 
