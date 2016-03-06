@@ -1,6 +1,6 @@
 window.onload = function() {
   console.log("game loaded");
-  // playGame();
+  playGame();
 }
 
 
@@ -11,6 +11,10 @@ var playGame = function() {
 
   var gameActive = true;
   playerTurn();
+  updatePlayerHeals();
+  updateEnemyHealth();
+  updatePlayerHeals();
+  updateEnemyHeals();
   startEnemyTimer();
 
   if (player1.healthPoints == 0) {
@@ -86,6 +90,7 @@ function char(healthPoints, attackPower, healCount, healPower) {
     this.findAttackRange();
     enemy.currentHealth -= this.attackDamage;
     console.log("attack performed, enemy health: " + enemy.currentHealth);
+    updateEnemyHealth();
   };
 
   //heal ability
@@ -97,6 +102,8 @@ function char(healthPoints, attackPower, healCount, healPower) {
       this.healCount -= 1;
       console.log("heal performed, player health: " + char.currentHealth)
     }
+    updatePlayerHealth();
+    updatePlayerHeals();
   };
 };
 
@@ -135,6 +142,7 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
       this.findAttackRange();
       character.currentHealth -= this.attackDamage;
       console.log("enemy has attacked, player health: " + player1.currentHealth);
+      updatePlayerHealth();
       startEnemyTimer();
     }
     //heal ability
@@ -142,6 +150,8 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
     enemy.currentHealth += enemy.healPower;
     enemy.healCount -= 1;
     console.log("heal performed, enemy health: " + enemy.currentHealth)
+    updateEnemyHealth();
+    updateEnemyHeals();
     startEnemyTimer();
   };
 
@@ -225,10 +235,10 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
   };
 
 
-
-
   /******************* misc functions ******************/
 
+
+  /*** toggles buttons depending on if char is active or not ***/
   var toggleButtons = function() {
     if (playerActive == true) {
       attackButton.active = true;
@@ -240,36 +250,22 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
     }
   };
 
+  /*** grabs health and heal displays from DOM, functions update them depending on if damage
+  is done or a heal is performed ***/
   var charHealth = document.querySelector("#char-health");
   var charHeals = document.querySelector("#char-heals");
   var enemyHealth = document.querySelector("#enemy-health");
   var enemyHeals = document.querySelector("#enemy-heals");
 
   function updatePlayerHealth(){
-    charHealth.innerText = player1.healthPoints;
+    charHealth.innerText = player1.currentHealth;
   };
   function updatePlayerHeals(){
-    charHeals.innerText = player1.healthPoints;
+    charHeals.innerText = player1.healCount;
   };
-  function updatePlayerHealth(){
-    charHealth.innerText = player1.healthPoints;
+  function updateEnemyHealth(){
+    enemyHealth.innerText = enemy1.currentHealth;
   };
-  function updatePlayerHeals(){
-    charHeals.innerText = player1.healthPoints;
+  function updateEnemyHeals(){
+    enemyHeals.innerText = enemy1.healCount;
   };
-
-
-
-  //stuff for later
-
-  // first attempt at setting an attack range for a character.
-  // this.findAttackRange = function(attackPower){
-  //   char.attackRange.push(Math.floor(Math.random() * this.attackPower));
-  //   if (attackRange[0] > 0) {
-  //     attackRange.push(attackRange[0] - (attackRange[0]/2));
-  //   } else {
-  //     attackRange.push(0)
-  //   }
-  //   console.log(attackRange);
-  // }
-  //
