@@ -16,18 +16,16 @@
     <div class="char-col">
       <div class="character">
         <!-- <img src="./science-gifs/einstein/ezgif.com-crop.gif" alt="einstein"/> -->
+        <div class="status-div">
+          <div class="health-char">
+          </div>
+          <div class="heals-char">
+          </div>
+        </div>
       </div>
-      <div class="char-panel">
-        <div class="stats">
-          <p>filler for stats</p>
-        </div>
-
-        <div class="button-div">
-          <button type="button" class="button" id="attack" active=false>ATTACK</button>
-          <button type="button" class="button" id="defend" active=false>DEFEND</button>
-          <button type="button" class="button" id="heal" active=false>HEAL</button>
-        </div>
-
+      <div class="button-panel">
+        <button type="button" id="attack" active=false>ATTACK</button>
+        <button type="button" id="heal" active=false>HEAL</button>
       </div>
     </div>
 
@@ -36,19 +34,22 @@
         <p>
           filler for enemy 1
         </p>
+        <div class="status-div">
+          <div class="health-enemy">
+          </div>
+          <div class="heals-enemy">
+          </div>
+        </div>
+        <div class="status-div">
+        </div>
       </div>
-      <div class="enemy two">
-        <p>
-          filler for enemy 2
-        </p>
+      <div class="button-panel">
+        <!-- Note, just filler so the columns will display correctly  -->
       </div>
-      <div class="enemy three">
-        <p>
-          filler for enemy 3
-        </p>
-      </div>
+
     </div>
   </div>
+
   <script src="game.js"></script>
 
 </body>

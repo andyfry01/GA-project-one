@@ -1,6 +1,6 @@
 window.onload = function() {
   console.log("game loaded");
-  playGame();
+  // playGame();
 }
 
 
@@ -33,7 +33,7 @@ var attackButton = document.querySelector('#attack');
 
 attackButton.addEventListener("click", function() {
   if (attackButton.active == true && playerActive == true) {
-    andy.attack(baddie);
+    player1.attack(enemy1);
     playerActive = false;
     toggleButtons();
     startPlayerTimer();
@@ -44,7 +44,7 @@ var healButton = document.querySelector('#heal');
 
 healButton.addEventListener("click", function() {
   if (healButton.active == true && playerActive == true) {
-    andy.heal(andy);
+    player1.heal(player1);
     playerActive = false;
     toggleButtons();
     startPlayerTimer();
@@ -95,7 +95,7 @@ function char(healthPoints, attackPower, healCount, healPower) {
     } else {
       char.currentHealth += this.healPower;
       this.healCount -= 1;
-      console.log("heal performed, player health: " + andy.currentHealth)
+      console.log("heal performed, player health: " + char.currentHealth)
     }
   };
 };
@@ -153,28 +153,28 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
       randomMove = Math.random();
     }
     if (this.currentHealth > (this.healthPoints * 0.60)) {
-      console.log("enemy health is greater than 60% max, it chose to attack")
+      console.log("enemy health is greater than 60% max, it chooses to attack")
       return this.attack(player1)
     } else if (this.currentHealth < (this.healthPoints * 0.30)) {
       if (this.healCount > 0) {
-        console.log("enemy health is less than 30% max, it chose to heal")
+        console.log("enemy health is less than 30% max, it chooses to heal")
         return this.heal(enemy1)
       } else {
-        console.log("enemy health is less than 30% max but it has no more heals left, it chose to attack")
+        console.log("enemy health is less than 30% max but it has no more heals left, it chooses to attack")
         return this.attack(player1)
       }
     } else {
       randomizeMove();
       if (randomMove > 0.3) {
-        console.log("enemy health is between 60% and 30% max, it randomly chose to attack")
+        console.log("enemy health is between 60% and 30% max, it randomly chooses to attack")
         return this.attack(player1)
       }
       if (randomMove < 0.3) {
         if (this.healCount > 0) {
-          console.log("enemy health is between 60% and 30% max and it has heals left, it randomly chose to heal")
+          console.log("enemy health is between 60% and 30% max and it has heals left, it randomly chooses to heal")
           return this.heal(enemy1)
         } else {
-          console.log("enemy health is between 60% and 30% max and it doesn't have heals left, it chose to attack")
+          console.log("enemy health is between 60% and 30% max and it doesn't have heals left, it chooses to attack")
           return this.attack(player1)
         }
       }
