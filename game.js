@@ -3,18 +3,16 @@ window.onload = function() {
   playGame();
 }
 
-
-
 /******************* basic game elements ******************/
 
 var playGame = function() {
 
   var gameActive = true;
   playerTurn();
-  updatePlayerHeals();
   updateEnemyHealth();
-  updatePlayerHeals();
   updateEnemyHeals();
+  updatePlayerHealth();
+  updatePlayerHeals();
   startEnemyTimer();
 
   if (player1.healthPoints == 0) {
@@ -192,80 +190,113 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
   }
 };
 
-  //test enemy/characters
-  var andy = new char(10, 2, 3, 1);
-  var baddie = new enemy(10, 2, 3, 1);
+//test enemy/characters
+var andy = new char(10, 2, 3, 1);
+var baddie = new enemy(10, 2, 3, 1);
 
 
 
 
 
-  /******************* enemy and character timers ******************/
+/******************* enemy and character timers ******************/
 
-  /*** player timer, triggers player turn ***/
-  var startPlayerTimer = function() {
-    window.setTimeout(function() {
-      playerTurn(player1);
-    }, 5000);
-    console.log("player timer started")
+/*** player timer, triggers player turn ***/
+var startPlayerTimer = function() {
+  window.setTimeout(function() {
+    playerTurn(player1);
+  }, 5000);
+  console.log("player timer started")
+};
 
-  };
-  /*** enemy timer, triggers enemy turn ***/
-  var startEnemyTimer = function() {
-    window.setTimeout(function() {
-      enemyTurn(enemy1);
-    }, 5000);
-    console.log("enemy timer started")
-  };
-
-
+/*** enemy timer, triggers enemy turn ***/
+var startEnemyTimer = function() {
+  window.setTimeout(function() {
+    enemyTurn(enemy1);
+  }, 5000);
+  console.log("enemy timer started");
+};
 
 
-  /********** enemy and character turn triggering functions ************/
-  /*** player turn ***/
-  var playerTurn = function() {
-    playerActive = true;
-    toggleButtons();
-    console.log("buttons active, click away!")
+
+
+/********** enemy and character turn triggering functions ************/
+
+/*** player turn, activates player buttons, toggles slideUp animations off
+for enemy health/character heals ***/
+var playerTurn = function() {
+  playerActive = true;
+  toggleButtons();
+  console.log("buttons active, click away!")
+}
+
+/*** enemy turn, toggles slideUp animations off for enemy health/character heals ***/
+var enemyTurn = function() {
+  enemy1.computeMove();
+};
+
+
+/******************* misc functions ******************/
+
+
+/*** toggles buttons depending on if char is active or not ***/
+var toggleButtons = function() {
+  if (playerActive == true) {
+    attackButton.active = true;
+    healButton.active = true;
   }
+  if (playerActive == false) {
+    attackButton.active = true;
+    healButton.active = true;
+  }
+};
 
-  /*** enemy turn ***/
-  var enemyTurn = function() {
-    enemy1.computeMove();
+
+/*** grabs health and heal displays from DOM, functions update number
+displayed and adds slideUp animation***/
+
+var charHealth = document.querySelector("#char-health");
+var charHeals = document.querySelector("#char-heals");
+var enemyHealth = document.querySelector("#enemy-health");
+var enemyHeals = document.querySelector("#enemy-heals");
+
+
+function updatePlayerHealth() {
+  console.log("updated player health");
+  if (charHealth.classList.contains("slideUp")) {
+    charHealth.classList.toggle("slideUp");
   };
+  charHealth.classList.add("slideUp");
+  charHealth.innerText = player1.currentHealth;
+};
 
-
-  /******************* misc functions ******************/
-
-
-  /*** toggles buttons depending on if char is active or not ***/
-  var toggleButtons = function() {
-    if (playerActive == true) {
-      attackButton.active = true;
-      healButton.active = true;
-    }
-    if (playerActive == false) {
-      attackButton.active = true;
-      healButton.active = true;
-    }
+function updatePlayerHeals() {
+  console.log("updated player heals");
+  if (charHeals.classList.contains("slideUp")) {
+    charHeals.classList.toggle("slideUp");
   };
+  charHeals.classList.add("slideUp");
+  charHeals.innerText = player1.healCount;
+};
 
-  /*** grabs health and heal displays from DOM, functions update them depending on if damage
-  is done or a heal is performed ***/
-  var charHealth = document.querySelector("#char-health");
-  var charHeals = document.querySelector("#char-heals");
-  var enemyHealth = document.querySelector("#enemy-health");
-  var enemyHeals = document.querySelector("#enemy-heals");
+function updateEnemyHealth() {
+  console.log("updated enemy health");
+  if (enemyHealth.classList.contains("slideUp")) {
+    enemyHealth.classList.toggle("slideUp");
+  };
+  enemyHealth.classList.add("slideUp");
+  enemyHealth.innerText = enemy1.currentHealth;
+};
 
-  function updatePlayerHealth(){
-    charHealth.innerText = player1.currentHealth;
+function updateEnemyHeals() {
+  console.log("updated enemy heals");
+  if (enemyHeals.classList.contains("slideUp")) {
+    enemyHeals.classList.toggle("slideUp");
   };
-  function updatePlayerHeals(){
-    charHeals.innerText = player1.healCount;
-  };
-  function updateEnemyHealth(){
-    enemyHealth.innerText = enemy1.currentHealth;
-  };
-  function updateEnemyHeals(){
-    enemyHeals.innerText = enemy1.healCount;
-  };
+  enemyHeals.classList.add("slideUp");
+  enemyHeals.innerText = enemy1.healCount;
+};
+
+
+// sources:
+// http://www.justinaguilar.com/animations/index.html#
+// https://css-tricks.com/snippets/css/shake-css-keyframe-animation/
