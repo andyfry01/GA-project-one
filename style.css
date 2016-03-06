@@ -3,11 +3,12 @@
 }
 
 body {
-
+  background: url(./bg/galaxy.jpg);
 }
 
 img {
   height: 100%;
+  width: 100%;
 }
 
 p {
@@ -16,11 +17,10 @@ p {
 }
 
 .site-wrap {
-  position: relative;
   height: 95vh;
   width: 95vw;
-  background: lightgreen;
   margin: 0 auto;
+  z-index: -1;
 }
 
 /*.fight {
@@ -37,8 +37,6 @@ p {
   width: 50%;
   height: 100%;
   padding: 5px;
-  background: lightyellow;
-  border: 1px dotted black;
   float: left;
   display: flex;
   flex-direction: column;
@@ -49,8 +47,6 @@ p {
   position: relative;
   height: 60%;
   width: 60%;
-  background: lightblue;
-  border: 1px dotted black;
   margin: 5px auto;
 }
 
@@ -59,7 +55,6 @@ p {
   bottom: 0;
   height: 15%;
   width: 100%;
-  background: lightgreen;
 }
 
 .status-box {
@@ -93,9 +88,6 @@ p {
   height: 20%;
   width: 100%;
   margin: 0 auto;
-  background: lightblue;
-  border: 1px dotted black;
-  border-radius: 10px;
 }
 
 /* come back to this later, makes the button div bigger to indicate that you can attack, etc.*/
@@ -112,8 +104,6 @@ button {
   height: 80%;
   width: 50%;
   margin: 5px 0 5px 0;
-  background: gray;
-  border: 1px solid black;
   border-radius: 10px;
 }
 
@@ -122,8 +112,6 @@ button {
   width: 50%;
   height: 100%;
   padding: 5px;
-  background: lightblue;
-  border: 1px solid white;
   float: left;
   display: flex;
   flex-direction: column;
@@ -135,6 +123,4 @@ button {
   height: 60%;
   width: 60%;
   margin: 5px auto;
-  background: gray;
-  border: 1px dotted black;
 }
