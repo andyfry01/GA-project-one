@@ -7,7 +7,6 @@ window.onload = function() {
 
 var playGame = function() {
 
-  var gameActive = true;
   playerTurn();
   updateEnemyHealth();
   updateEnemyHeals();
@@ -15,11 +14,12 @@ var playGame = function() {
   updatePlayerHeals();
   startEnemyTimer();
 
-  if (player1.healthPoints == 0) {
-    gameActive = false;
-    gameOver();
-  }
 };
+
+var gameOver = function() {
+
+
+}
 
 
 
@@ -93,15 +93,16 @@ function char(healthPoints, attackPower, healCount, healPower) {
 
   //heal ability
   this.heal = function(char) {
-    if (this.healCount = 0) {
+    if (this.healCount == 0) {
       console.log("no more heals for player left!"); //note: update to display on screen later
     } else {
       char.currentHealth += this.healPower;
       this.healCount -= 1;
-      console.log("heal performed, player health: " + char.currentHealth)
+      console.log("heal performed, player health: " + char.currentHealth);
+      updatePlayerHealth();
+      updatePlayerHeals();
     }
-    updatePlayerHealth();
-    updatePlayerHeals();
+
   };
 };
 
@@ -289,8 +290,12 @@ function updateEnemyHeals() {
   enemyHeals.innerText = enemy1.healCount;
 };
 
+/*** grabs char/enemy divs for shaking animation when attacked ***/
+
+
 
 // sources:
+// https://www.google.com/fonts
 // http://www.justinaguilar.com/animations/index.html#
 // https://css-tricks.com/snippets/css/shake-css-keyframe-animation/
 // https://css-tricks.com/restart-css-animation/

@@ -58,29 +58,32 @@ p {
 
 .status-box {
   height: 100%;
-  width: 15%;
+  width: 35%;
   position: absolute;
+  font-family: 'Passion One', bold;
+  font-size: 40px;
+  text-align: center;
 }
 
 #char-health {
-  background: blue;
   left: 0;
+  color: white;
 }
 
 #char-heals {
-  background: white;
   right: 0;
+  color: black;
 }
 
 #enemy-health {
-  background: blue;
   left: 0;
+  color: white;
 }
 
 
 #enemy-heals {
-  background: white;
   right: 0;
+  color: black;
 }
 
 .button-panel {
@@ -104,6 +107,8 @@ button {
   width: 50%;
   margin: 5px 0 5px 0;
   border-radius: 10px;
+  font-family: 'Passion One', bold;
+  font-size: 45px;
 }
 
 .enemy-col {
