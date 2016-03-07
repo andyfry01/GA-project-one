@@ -13,14 +13,7 @@ var playGame = function() {
   updatePlayerHealth();
   updatePlayerHeals();
   startEnemyTimer();
-
 };
-
-var gameOver = function() {
-
-
-}
-
 
 
 // Specifies whether it's the player's turn or not, defines player/enemy variables.
@@ -88,6 +81,7 @@ function char(healthPoints, attackPower, healCount, healPower) {
     this.findAttackRange();
     enemy.currentHealth -= this.attackDamage;
     console.log("attack performed, enemy health: " + enemy.currentHealth);
+    shakeEnemy();
     updateEnemyHealth();
   };
 
@@ -141,6 +135,7 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
       this.findAttackRange();
       character.currentHealth -= this.attackDamage;
       console.log("enemy has attacked, player health: " + player1.currentHealth);
+      shakeChar();
       updatePlayerHealth();
       startEnemyTimer();
     }
@@ -191,9 +186,9 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
   }
 };
 
-//test enemy/characters
-var andy = new char(10, 2, 3, 1);
-var baddie = new enemy(10, 2, 3, 1);
+//creates character/enemy
+var einstein = new char(20, 5, 3, 3);
+var newton = new enemy(20, 6, 2, 2);
 
 
 
@@ -234,6 +229,38 @@ var playerTurn = function() {
 var enemyTurn = function() {
   enemy1.computeMove();
 };
+
+
+
+
+
+/******************* game win/lose functions ******************/
+
+var siteWrapper = document.querySelector(".site-wrap");
+
+var playerLose = function() {
+  siteWrapper.innerHTML = ""
+  siteWrapper.setAttribute("class", "gameOver");
+  siteWrapper.innerHTML = "<h1>You've lost, better luck next time patent clerk.</h1>";
+  document.body.appendChild(siteWrapper);
+};
+
+var playerWin = function() {
+  siteWrapper.innerHTML = ""
+  siteWrapper.setAttribute("class", "gameOver");
+  siteWrapper.innerHTML = "<h1>You've won! But at what cost to the history of science?</h1>";
+  document.body.appendChild(siteWrapper);
+};
+
+if (player1.currentHealth <= 0) {
+  playerLose();
+}
+
+if (enemy1.currentHealth <= 0) {
+  playerWin();
+}
+
+
 
 
 /******************* misc functions ******************/
@@ -291,6 +318,22 @@ function updateEnemyHeals() {
 };
 
 /*** grabs char/enemy divs for shaking animation when attacked ***/
+
+var charDiv = document.querySelector(".character");
+var enemyDiv = document.querySelector(".enemy");
+
+function shakeChar() {
+  charDiv.classList.toggle("shake-1");
+  charDiv.classList.toggle("shake-2");
+}
+
+function shakeEnemy() {
+  enemyDiv.classList.toggle("shake-1");
+  enemyDiv.classList.toggle("shake-2");
+}
+
+
+
 
 
 

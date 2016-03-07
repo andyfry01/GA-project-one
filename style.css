@@ -11,25 +11,11 @@ img {
   width: 100%;
 }
 
-p {
-  font-size: 20px;
-  color: black;
-}
-
 .site-wrap {
   height: 95vh;
   width: 95vw;
   margin: 0 auto;
 }
-
-/*.fight {
-  width: 30%;
-  height: 15%;
-  background: rgba(0,0,0,0.5);
-  margin-top: 15px;
-  float: center;
-  text-align: center;
-}*/
 
 .char-col {
   position: relative;
@@ -128,3 +114,11 @@ button {
   width: 60%;
   margin: 5px auto;
 }
+
+.gameOver {
+  font-family: 'Passion One', bold;
+  font-size: 80px;
+  color: white;
+  margin: 0 auto;
+  padding: 10px;
+};
