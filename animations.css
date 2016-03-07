@@ -1,74 +1,80 @@
-.slideUp-1{
-	animation-name: slideUp-1;
-	-webkit-animation-name: slideUp-1;
-
+.slideUp-1 {
+  animation-name: slideUp-1;
+  -webkit-animation-name: slideUp-1;
   animation-duration: 0.75s;
-	-webkit-animation-duration: 0.75s;
-
-	animation-timing-function: ease;
-	-webkit-animation-timing-function: ease;
-
-	visibility: visible !important;
+  -webkit-animation-duration: 0.75s;
+  animation-timing-function: ease;
+  -webkit-animation-timing-function: ease;
+  visibility: visible !important;
 }
 
 @keyframes slideUp-1 {
-	0% {
-		transform: translateY(300%);
-	}
-	100% {
-		transform: translateY(0%);
-	}
+  0% {
+    transform: translateY(300%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
 }
 
-.slideUp-2{
-	animation-name: slideUp-2;
-	-webkit-animation-name: slideUp-2;
-
-	animation-duration: 0.75s;
-	-webkit-animation-duration: 0.75s;
-
-	animation-timing-function: ease;
-	-webkit-animation-timing-function: ease;
-
-	visibility: visible !important;
+.slideUp-2 {
+  animation-name: slideUp-2;
+  -webkit-animation-name: slideUp-2;
+  animation-duration: 0.75s;
+  -webkit-animation-duration: 0.75s;
+  animation-timing-function: ease;
+  -webkit-animation-timing-function: ease;
+  visibility: visible !important;
 }
 
 @keyframes slideUp-2 {
-	0% {
-		transform: translateY(300%);
-	}
-	100% {
-		transform: translateY(0%);
-	}
+  0% {
+    transform: translateY(300%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
 }
 
 .shake-1 {
-  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  animation: shake-1 0.82s cubic-bezier(.36, .07, .19, .97) both;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
 }
 
-.shake-2 {
-  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-@keyframes shake {
+@keyframes shake-1 {
   10%, 90% {
     transform: translate3d(-5px, 0, 0);
   }
-
   20%, 80% {
     transform: translate3d(5px, 0, 0);
   }
-
   30%, 50%, 70% {
     transform: translate3d(-7px, 0, 0);
   }
+  40%, 60% {
+    transform: translate3d(9px, 0, 0);
+  }
+}
 
+.shake-2 {
+  animation: shake-2 0.82s cubic-bezier(.36, .07, .19, .97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake-2 {
+  10%, 90% {
+    transform: translate3d(-5px, 0, 0);
+  }
+  20%, 80% {
+    transform: translate3d(5px, 0, 0);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-7px, 0, 0);
+  }
   40%, 60% {
     transform: translate3d(9px, 0, 0);
   }

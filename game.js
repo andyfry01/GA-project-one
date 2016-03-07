@@ -22,6 +22,8 @@ var player1;
 var enemy1;
 
 
+
+
 /******************* button event listeners ******************/
 
 var attackButton = document.querySelector('#attack');
@@ -71,8 +73,7 @@ function char(healthPoints, attackPower, healCount, healPower) {
     this.attackDamage = Math.floor(Math.random() * (this.attackMax - this.attackMin + 1)) + this.attackMin;
   };
 
-  /*** character states ***/
-  this.alive = true;
+  /*** sets character as player1 ***/
   player1 = this;
 
   /*** character abilities ***/
@@ -125,8 +126,7 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
     this.attackDamage = Math.floor(Math.random() * (this.attackMax - this.attackMin + 1)) + this.attackMin;
   };
 
-  /*** enemy states ***/
-  this.alive = true;
+  /*** sets enemy as enemy1 ***/
   enemy1 = this;
 
   /*** enemy abilities ***/
@@ -150,7 +150,7 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
     startEnemyTimer();
   };
 
-  /************************** enemy AI **************************/
+  /*** enemy AI ***/
 
   this.computeMove = function() {
     var randomMove = undefined;
@@ -188,20 +188,19 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
 };
 
 //creates character/enemy
-var einstein = new char(20, 5, 3, 3);
+var einstein = new char(20, 5.5, 3, 3);
 var newton = new enemy(20, 6, 2, 2);
 
 
 
 
-
-/******************* enemy and character timers ******************/
+/******************* enemy and character timers/turn triggering functions ******************/
 
 /*** player timer, triggers player turn ***/
 var startPlayerTimer = function() {
   window.setTimeout(function() {
     playerTurn(player1);
-  }, 5000);
+  }, 4800);
   console.log("player timer started")
 };
 
@@ -213,24 +212,17 @@ var startEnemyTimer = function() {
   console.log("enemy timer started");
 };
 
-
-
-
-/********** enemy and character turn triggering functions ************/
-
-/*** player turn, activates player buttons, toggles slideUp animations off
-for enemy health/character heals ***/
+/*** player turn, activates player buttons ***/
 var playerTurn = function() {
   playerActive = true;
   toggleButtons();
   console.log("buttons active, click away!")
 }
 
-/*** enemy turn, toggles slideUp animations off for enemy health/character heals ***/
+/*** enemy turn, computes move based on health level/remainin heals ***/
 var enemyTurn = function() {
   enemy1.computeMove();
 };
-
 
 
 
@@ -266,25 +258,26 @@ var checkForWin = function() {
 
 
 
+
 /******************* misc functions ******************/
 
-
-/*** toggles buttons depending on if char is active or not ***/
+/*** toggles buttons on/off depending on if char is active or not, toggles button display ***/
 var toggleButtons = function() {
   if (playerActive == true) {
     attackButton.active = true;
     healButton.active = true;
   }
   if (playerActive == false) {
-    attackButton.active = true;
-    healButton.active = true;
+    attackButton.active = false;
+    healButton.active = false;
   }
+  attackButton.classList.toggle("darkened");
+  healButton.classList.toggle("darkened");
 };
 
 
 /*** grabs health and heal displays from DOM, functions update number
-displayed and adds slideUp animation each time a hit or heal occurs***/
-
+displayed and triggers slideUp animation each time a hit or heal occurs***/
 
 var charHealth = document.querySelector("#char-health");
 var charHeals = document.querySelector("#char-heals");
@@ -326,22 +319,11 @@ var charDiv = document.querySelector(".character");
 var enemyDiv = document.querySelector(".enemy");
 
 function shakeChar() {
-  charDiv.classList.toggle("shake-1");
   charDiv.classList.toggle("shake-2");
+  charDiv.classList.toggle("shake-1");
 }
 
 function shakeEnemy() {
-  enemyDiv.classList.toggle("shake-1");
   enemyDiv.classList.toggle("shake-2");
+  enemyDiv.classList.toggle("shake-1");
 }
-
-
-
-
-
-
-// sources:
-// https://www.google.com/fonts
-// http://www.justinaguilar.com/animations/index.html#
-// https://css-tricks.com/snippets/css/shake-css-keyframe-animation/
-// https://css-tricks.com/restart-css-animation/

@@ -12,8 +12,8 @@ img {
 }
 
 .site-wrap {
-  height: 95vh;
-  width: 95vw;
+  height: 100vh;
+  width: 100vw;
   margin: 0 auto;
 }
 
@@ -44,7 +44,7 @@ img {
 
 .status-box {
   height: 100%;
-  width: 35%;
+  width: 20%;
   position: absolute;
   font-family: 'Passion One', bold;
   font-size: 40px;
@@ -66,7 +66,6 @@ img {
   color: white;
 }
 
-
 #enemy-heals {
   right: 0;
   color: black;
@@ -78,12 +77,8 @@ img {
   margin: 0 auto;
 }
 
-/* come back to this later, makes the button div bigger to indicate that you can attack, etc.*/
-.active {
-  position: absolute;
-  width: 110%;
-  height: 70%;
-  bottom: 0;
+.darkened {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 button {
@@ -95,6 +90,8 @@ button {
   border-radius: 10px;
   font-family: 'Passion One', bold;
   font-size: 45px;
+  cursor: pointer;
+  background: rgba(225, 225, 225, 0.5);
 }
 
 .enemy-col {
@@ -121,4 +118,4 @@ button {
   color: white;
   margin: 0 auto;
   padding: 10px;
-};
+}

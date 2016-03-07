@@ -3,18 +3,21 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Super Science Showdown</title>
+  <title>Super Science Showdown!</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="animations.css">
   <link href='https://fonts.googleapis.com/css?family=Passion+One:700|Signika+Negative|Stardos+Stencil' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-  <!-- <audio autoplay>
+
+  <!-- Comment out lines 15-17 if you're sick of the song :P -->
+  <audio autoplay>
     <source src="./audio/audio.mp3" type="audio/mpeg">
-  </audio> -->
+  </audio>
 
   <div class="site-wrap">
+
     <div class="char-col">
       <div class="character shake-1">
         <img src="./gifs/einstein.gif" alt="einstein" />
@@ -26,14 +29,14 @@
         </div>
       </div>
       <div class="button-panel">
-        <button type="button" id="attack" active=false>ATTACK</button>
-        <button type="button" id="heal" active=false>HEAL</button>
+        <button type="button" id="attack" class="darkened" active=false>ATTACK</button>
+        <button type="button" id="heal" class="darkened" active=false>HEAL</button>
       </div>
     </div>
 
     <div class="enemy-col">
       <div class="enemy shake-1">
-        <img src="./gifs/newton.gif" class = "flip" alt="newton" />
+        <img src="./gifs/newton.gif" class="flip" alt="newton" />
         <div class="status-div">
           <div class="status-box slideUp-1" id="enemy-health">
           </div>
@@ -44,7 +47,6 @@
       <div class="button-panel">
         <!-- Filler so flexbox will put the enemy column in the right spot  -->
       </div>
-
     </div>
   </div>
 
