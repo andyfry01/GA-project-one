@@ -83,6 +83,7 @@ function char(healthPoints, attackPower, healCount, healPower) {
     console.log("attack performed, enemy health: " + enemy.currentHealth);
     shakeEnemy();
     updateEnemyHealth();
+    checkForWin();
   };
 
   //heal ability
@@ -96,7 +97,6 @@ function char(healthPoints, attackPower, healCount, healPower) {
       updatePlayerHealth();
       updatePlayerHeals();
     }
-
   };
 };
 
@@ -137,6 +137,7 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
       console.log("enemy has attacked, player health: " + player1.currentHealth);
       shakeChar();
       updatePlayerHealth();
+      checkForWin();
       startEnemyTimer();
     }
     //heal ability
@@ -241,6 +242,7 @@ var siteWrapper = document.querySelector(".site-wrap");
 var playerLose = function() {
   siteWrapper.innerHTML = ""
   siteWrapper.setAttribute("class", "gameOver");
+  siteWrapper.classList.toggle("slideUp-1");
   siteWrapper.innerHTML = "<h1>You've lost, better luck next time patent clerk.</h1>";
   document.body.appendChild(siteWrapper);
 };
@@ -248,18 +250,19 @@ var playerLose = function() {
 var playerWin = function() {
   siteWrapper.innerHTML = ""
   siteWrapper.setAttribute("class", "gameOver");
+  siteWrapper.classList.toggle("slideUp-1");
   siteWrapper.innerHTML = "<h1>You've won! But at what cost to the history of science?</h1>";
   document.body.appendChild(siteWrapper);
 };
 
-if (player1.currentHealth <= 0) {
-  playerLose();
-}
-
-if (enemy1.currentHealth <= 0) {
-  playerWin();
-}
-
+var checkForWin = function() {
+  if (player1.currentHealth <= 0) {
+    playerLose();
+  }
+  if (enemy1.currentHealth <= 0) {
+    playerWin();
+  }
+};
 
 
 
