@@ -252,7 +252,8 @@ var toggleButtons = function() {
 
 
 /*** grabs health and heal displays from DOM, functions update number
-displayed and adds slideUp animation***/
+displayed and adds slideUp animation each time a hit or heal occurs***/
+
 
 var charHealth = document.querySelector("#char-health");
 var charHeals = document.querySelector("#char-heals");
@@ -262,37 +263,29 @@ var enemyHeals = document.querySelector("#enemy-heals");
 
 function updatePlayerHealth() {
   console.log("updated player health");
-  if (charHealth.classList.contains("slideUp")) {
-    charHealth.classList.toggle("slideUp");
-  };
-  charHealth.classList.add("slideUp");
+  charHealth.classList.toggle("slideUp-1");
+  charHealth.classList.toggle("slideUp-2");
   charHealth.innerText = player1.currentHealth;
 };
 
 function updatePlayerHeals() {
   console.log("updated player heals");
-  if (charHeals.classList.contains("slideUp")) {
-    charHeals.classList.toggle("slideUp");
-  };
-  charHeals.classList.add("slideUp");
+  charHeals.classList.toggle("slideUp-1");
+  charHeals.classList.toggle("slideUp-2");
   charHeals.innerText = player1.healCount;
 };
 
 function updateEnemyHealth() {
   console.log("updated enemy health");
-  if (enemyHealth.classList.contains("slideUp")) {
-    enemyHealth.classList.toggle("slideUp");
-  };
-  enemyHealth.classList.add("slideUp");
+  enemyHealth.classList.toggle("slideUp-1");
+  enemyHealth.classList.toggle("slideUp-2");
   enemyHealth.innerText = enemy1.currentHealth;
 };
 
 function updateEnemyHeals() {
   console.log("updated enemy heals");
-  if (enemyHeals.classList.contains("slideUp")) {
-    enemyHeals.classList.toggle("slideUp");
-  };
-  enemyHeals.classList.add("slideUp");
+  enemyHeals.classList.toggle("slideUp-1");
+  enemyHeals.classList.toggle("slideUp-2");
   enemyHeals.innerText = enemy1.healCount;
 };
 
@@ -300,3 +293,4 @@ function updateEnemyHeals() {
 // sources:
 // http://www.justinaguilar.com/animations/index.html#
 // https://css-tricks.com/snippets/css/shake-css-keyframe-animation/
+// https://css-tricks.com/restart-css-animation/
