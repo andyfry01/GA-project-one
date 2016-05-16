@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 window.onload = function() {
   console.log("game loaded");
   playGame();
@@ -188,8 +190,8 @@ function enemy(healthPoints, attackPower, healCount, healPower) {
 };
 
 //creates character/enemy
-var einstein = new char(20, 5.5, 3, 3);
-var newton = new enemy(20, 6, 2, 2);
+var einstein = new char(15, 5.5, 3, 3);
+var newton = new enemy(15, 5, 2, 2);
 
 
 
